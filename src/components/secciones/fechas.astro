@@ -1,0 +1,91 @@
+---
+// Próximas fechas: `fechas: [{fecha, lugar, ciudad, hora, estado, url}]` en filas de cartel de gira a todo el ancho:
+// el día en grande (sale del número de `fecha`, escrita como quieras: «14 nov 2026»), lugar, ciudad, hora, `estado`
+// («Últimas entradas», «Agotado», «Entrada libre»… o vacío) y botón «Entradas» si hay `url`. `nota` y `cta` opcionales.
+// Sin fechas: titular, texto, nota y botón.
+import { seccion, partirFecha, esExterno } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const fechas = s?.fechas ?? [];
+const tipoEstado = (e?: string) => {
+  const t = (e ?? '').toLowerCase();
+  if (t.includes('agot') || t.includes('complet')) return 'agotado';
+  if (t.includes('últim') || t.includes('ultim') || t.includes('pocas')) return 'caliente';
+  return t ? 'normal' : '';
+};
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} banda="oscura" class="fechas-banda">
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} partido />
+      {fechas.length > 0 && (
+        <ol class="gira">
+          {fechas.map((f) => {
+            const p = partirFecha(f.fecha);
+            const estado = tipoEstado(f.estado);
+            return (
+              <li class:list={['gira-fila', { 'gira-fila--agotada': estado === 'agotado' }]}>
+                <p class="gira-fecha">
+                  {p.dia && <span class="gira-dia">{p.dia}</span>}
+                  {p.resto && <span class="gira-mes">{p.resto}</span>}
+                </p>
+                <div class="gira-sitio">
+                  {f.lugar && <h3 class="gira-lugar">{f.lugar}</h3>}
+                  {f.ciudad && <p class="gira-ciudad"><Icono nombre="mapa" tam={16} />{f.ciudad}</p>}
+                </div>
+                {f.hora && <p class="gira-hora"><Icono nombre="reloj" tam={16} />{f.hora}</p>}
+                <div class="gira-accion">
+                  {f.estado && <span class:list={['sello', { 'sello--caliente': estado === 'caliente', 'sello--agotado': estado === 'agotado' }]}>{f.estado}</span>}
+                  {f.url && estado !== 'agotado' && (
+                    <a class="btn gira-btn" href={f.url} {...(esExterno(f.url) ? { target: '_blank', rel: 'noopener' } : {})} aria-label={`Entradas: ${[f.fecha, f.lugar, f.ciudad].filter(Boolean).join(', ')}`}>
+                      <Icono nombre="entrada" tam={20} />Entradas
+                    </a>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+      {(s.nota || s.cta) && (
+        <div class="fechas-pie">
+          {s.nota && <p class="mono text-sm opacity-70">{s.nota}</p>}
+          {s.cta && <a class="btn" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+      )}
+    </Seccion>
+  )
+}
+
+<style>
+  .fechas-banda { border-top: 1px solid var(--linea); }
+  .gira { border-top: 3px solid var(--c-acento); counter-reset: gira; }
+  .gira-fila { display: grid; grid-template-columns: 5.25rem minmax(0, 1fr); column-gap: 1rem; row-gap: .75rem; align-items: center; padding-block: 1.4rem; border-bottom: 1px dashed color-mix(in srgb, currentColor 30%, transparent); position: relative; transition: background-color .2s ease; }
+  .gira-fecha { grid-row: span 2; display: flex; flex-direction: column; line-height: 1; }
+  .gira-dia { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; font-size: 3.6rem; line-height: .85; color: var(--c-acento); }
+  .gira-mes { margin-top: .35rem; font-family: var(--fuente-mono); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
+  .gira-lugar { font-size: 1.6rem; line-height: 1; overflow-wrap: anywhere; }
+  .gira-ciudad, .gira-hora { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--fuente-mono); font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; }
+  .gira-ciudad { margin-top: .45rem; opacity: .8; }
+  .gira-ciudad :global(svg), .gira-hora :global(svg) { color: var(--c-primario); flex-shrink: 0; }
+  .gira-hora { grid-column: 2; }
+  .gira-accion { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: .9rem 1rem; }
+  .gira-accion:empty { display: none; }
+  .gira-btn { min-height: 2.9rem; font-size: 1.05rem; padding-inline: 1.1rem; }
+  .gira-fila--agotada .gira-dia, .gira-fila--agotada .gira-lugar { opacity: .45; }
+  @media (min-width: 640px) { .gira-accion { grid-column: 2; } }
+  @media (min-width: 900px) {
+    .gira-fila { grid-template-columns: 9rem minmax(0, 1fr) 8rem minmax(14rem, auto); column-gap: 2rem; padding: 1.6rem 1.25rem; }
+    .gira-fecha { grid-row: auto; }
+    .gira-dia { font-size: 5rem; }
+    .gira-lugar { font-size: 2.3rem; }
+    .gira-hora { grid-column: auto; }
+    .gira-accion { grid-column: auto; justify-content: flex-end; }
+    .gira-fila:hover { background: color-mix(in srgb, var(--c-primario) 16%, transparent); }
+  }
+  .fechas-pie { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem 2rem; }
+</style>

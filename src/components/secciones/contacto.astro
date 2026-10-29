@@ -1,0 +1,57 @@
+---
+// Contacto sobre noche a todo el ancho: titular, teléfono enorme en amarillo de cartel, vías de contacto en fila
+// (WhatsApp, email, dirección con enlace al mapa y horario de site.yaml → contacto) y, al lado, el formulario
+// (nombre, teléfono, email, «Me interesa» con los espectáculos y mensaje) en bloque con filete magenta.
+import { seccion, site, tel, whatsapp, mapa } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const c = site.contacto;
+const botonForm = (s?.boton_formulario as string) || undefined;
+---
+
+{
+  s && (
+    <Seccion id={id} banda="oscura" class="contacto-banda">
+      <div class="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
+        <div class="min-w-0">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {c.telefono && <a class="contacto-telefono" href={tel(c.telefono)}>{c.telefono}</a>}
+          <ul class="contacto-vias">
+            {c.whatsapp && (
+              <li><a class="contacto-dato" href={whatsapp(c.whatsapp)} rel="noopener" target="_blank"><Icono nombre="whatsapp" class="shrink-0" />WhatsApp</a></li>
+            )}
+            {c.email && (
+              <li><a class="contacto-dato break-all" href={`mailto:${c.email}`}><Icono nombre="correo" class="shrink-0" />{c.email}</a></li>
+            )}
+            {c.direccion && (
+              <li><a class="contacto-dato" href={mapa(c.direccion)} rel="noopener" target="_blank"><Icono nombre="mapa" class="shrink-0" />{c.direccion}</a></li>
+            )}
+            {c.horario && <li class="contacto-dato"><Icono nombre="reloj" class="shrink-0" />{c.horario}</li>}
+          </ul>
+        </div>
+        <div class="contacto-form banda-noche">
+          <FormularioContacto prefijo={`${id}-f`} boton={botonForm} />
+        </div>
+      </div>
+    </Seccion>
+  )
+}
+
+<style>
+  .contacto-banda { border-top: 1px solid var(--linea); }
+  .contacto-telefono { display: inline-block; font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; font-size: clamp(2.6rem, 12vw, 6.5rem); line-height: .9; text-decoration: none; color: var(--c-acento); text-shadow: 5px 5px 0 var(--c-primario); }
+  .contacto-telefono:hover { text-shadow: 7px 7px 0 var(--c-primario); }
+  .contacto-vias { margin-top: 2.25rem; display: grid; gap: 1.1rem; }
+  @media (min-width: 640px) and (max-width: 1023px) { .contacto-vias { grid-template-columns: 1fr 1fr; } }
+  .contacto-dato { display: flex; align-items: flex-start; gap: .8rem; text-decoration: none; font-size: 1.05rem; }
+  .contacto-dato :global(svg) { color: var(--c-primario); margin-top: .1rem; }
+  a.contacto-dato:hover { color: var(--c-acento); }
+  .contacto-form { padding: 1.75rem 1.25rem; border-top: 5px solid var(--c-primario); box-shadow: 8px 8px 0 var(--c-acento); }
+  @media (min-width: 768px) { .contacto-form { padding: 2.5rem; } }
+  @media (max-width: 639px) { .contacto-form { margin-right: 8px; } }
+</style>

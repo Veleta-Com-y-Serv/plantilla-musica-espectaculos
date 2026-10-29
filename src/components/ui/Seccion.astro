@@ -1,0 +1,19 @@
+---
+// Banda de sección a todo el ancho de la ventana. Adaptado de AstroWind (WidgetWrapper.astro), © onWidget, licencia MIT (LICENSE-ASTROWIND.md).
+// `banda` elige el fondo de color pleno (oscura, noche, magenta, amarilla o papel); el contenido va dentro de
+// `.contenedor` (máximo 90 rem, 16 px de margen lateral en móvil). `sin-contenedor` para filas a sangre.
+interface Props { id?: string; class?: string; contenedor?: string; banda?: 'oscura' | 'noche' | 'magenta' | 'amarilla' | 'papel'; etiqueta?: string; sinContenedor?: boolean }
+const { id, class: clase = '', contenedor = '', banda = 'oscura', etiqueta, sinContenedor = false } = Astro.props;
+---
+
+<section class:list={['seccion', `banda-${banda}`, clase]} id={id} aria-label={etiqueta}>
+  {
+    sinContenedor ? (
+      <slot />
+    ) : (
+      <div class:list={['contenedor', contenedor]}>
+        <slot />
+      </div>
+    )
+  }
+</section>

@@ -1,0 +1,82 @@
+---
+// Espectáculos o repertorio: `espectaculos: [{titulo, texto, duracion, formato, imagen}]` en filas 50/50 a sangre en
+// zigzag: la foto (duotono magenta, a color al pasar) toca el borde de la ventana y el texto va sobre magenta o noche,
+// con el número en hueco enorme. Sin foto, la fila es solo texto a todo el ancho. `cta` opcional al final.
+import { seccion } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const lista = s?.espectaculos ?? [];
+const dos = (n: number) => String(n + 1).padStart(2, '0');
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} banda="noche" sinContenedor class="espect-banda">
+      <div class="contenedor">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} partido />
+      </div>
+      {lista.length > 0 && (
+        <ul class="espect-lista">
+          {lista.map((e, i) => (
+            <li class:list={['espect-fila', { 'espect-fila--par': i % 2 === 1, 'espect-fila--sin-foto': !e.imagen }]}>
+              {e.imagen && (
+                <div class="espect-foto duo">
+                  <Imagen src={e.imagen} alt={altFicha(e)} ancho={1200} alto={900} class="h-full w-full object-cover" />
+                </div>
+              )}
+              <div class:list={['espect-texto', i % 2 === 0 ? 'banda-magenta trama' : 'banda-oscura']}>
+                <div class="espect-interior">
+                  <p class="espect-num hueco" aria-hidden="true">{dos(i)}</p>
+                  <h3 class="espect-titulo">{e.titulo}</h3>
+                  {e.texto && <p class="espect-parrafo">{e.texto}</p>}
+                  {(e.duracion || e.formato) && (
+                    <ul class="espect-datos">
+                      {e.formato && <li><Icono nombre="usuarios" tam={18} />{e.formato}</li>}
+                      {e.duracion && <li><Icono nombre="reloj" tam={18} />{e.duracion}</li>}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      {s.cta && (
+        <div class="contenedor pt-14">
+          <a class="btn" href={s.cta.url}>{s.cta.texto}</a>
+        </div>
+      )}
+    </Seccion>
+  )
+}
+
+<style>
+  .espect-banda { padding-bottom: 0; }
+  .espect-banda:has(.contenedor.pt-14) { padding-bottom: 3.5rem; }
+  .espect-fila { display: grid; }
+  .espect-foto { aspect-ratio: 4 / 3; min-height: 0; }
+  .espect-texto { display: flex; align-items: center; }
+  .espect-interior { width: 100%; padding: 2.5rem 1rem 3rem; }
+  .espect-num { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; font-size: 5rem; line-height: .8; }
+  .espect-titulo { margin-top: .75rem; font-size: clamp(2.4rem, 8vw, 4.5rem); }
+  .espect-parrafo { margin-top: 1rem; font-size: 1.1rem; max-width: 34rem; opacity: .9; }
+  .espect-datos { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: .6rem; }
+  .espect-datos li { display: inline-flex; align-items: center; gap: .5rem; padding: .45rem .8rem; font-family: var(--fuente-mono); font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border: 1.5px solid currentColor; }
+  @media (min-width: 768px) {
+    .espect-fila { grid-template-columns: 1fr 1fr; min-height: 32rem; }
+    .espect-fila--sin-foto { grid-template-columns: 1fr; min-height: 0; }
+    .espect-foto { aspect-ratio: auto; height: 100%; }
+    .espect-fila--par .espect-foto { order: 2; }
+    .espect-interior { padding: 4rem clamp(2rem, 5vw, 6rem); max-width: 45rem; }
+    .espect-fila:not(.espect-fila--par) .espect-interior { margin-right: auto; }
+    .espect-fila--par .espect-interior { margin-left: auto; }
+    .espect-fila--sin-foto .espect-interior { max-width: var(--ancho); margin-inline: auto; padding-inline: 2rem; }
+    .espect-num { font-size: 7rem; }
+  }
+  @media (min-width: 1280px) { .espect-fila { min-height: 38rem; } }
+</style>

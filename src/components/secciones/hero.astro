@@ -1,0 +1,120 @@
+---
+// Portada de cartel a pantalla completa: foto a sangre en duotono magenta con velo de noche, título enorme en letra
+// de cartel (la última palabra en amarillo), `texto`, `cta` y `cta_secundario`; pegatina redonda con la próxima
+// fecha (la primera de la sección «fechas», si está activa) y, al pie, cinta amarilla corrida con los `items`
+// ({titulo, icono}). Sin foto: fondo noche con trama y disco. Si es la primera sección, sube bajo la cabecera.
+import { seccion, proximaFecha, partirFecha } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const palabras = (s?.titulo ?? '').trim().split(/\s+/).filter(Boolean);
+const ultima = palabras.length > 1 ? palabras.pop() : '';
+const principio = palabras.join(' ');
+const proxima = proximaFecha();
+const pf = partirFecha(proxima?.fecha);
+const cinta = s?.items.filter((it) => it && it.titulo) ?? [];
+---
+
+{
+  s && (
+    <section id={id} class:list={['portada relative isolate overflow-hidden', { 'portada--primera': primera, 'portada--sin-foto trama': !s.imagen }]}>
+      {s.imagen && (
+        <div class="portada-foto duo absolute inset-0 -z-20">
+          <Imagen src={s.imagen} alt={altHero()} ancho={1920} alto={1080} prioridad={primera} class="h-full w-full object-cover" />
+        </div>
+      )}
+      <div class="portada-velo absolute inset-0 -z-10" aria-hidden="true" />
+      {!s.imagen && <div class="portada-disco" aria-hidden="true" />}
+      <div class="contenedor portada-cuerpo">
+        <div class="portada-texto">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && (
+            <h1 class="portada-titulo">
+              {principio}
+              {ultima && (
+                <>
+                  {' '}
+                  <span class="resalte">{ultima}</span>
+                </>
+              )}
+            </h1>
+          )}
+          {s.texto && <p class="portada-parrafo">{s.texto}</p>}
+          {(s.cta || s.cta_secundario) && (
+            <div class="acciones mt-9">
+              {s.cta && <a class="btn" href={s.cta.url}>{s.cta.texto}</a>}
+              {s.cta_secundario && <a class="btn-sec" href={s.cta_secundario.url}>{s.cta_secundario.texto}</a>}
+            </div>
+          )}
+        </div>
+        {proxima && (
+          <a class="pegatina" href={`#${proxima.ancla}`} aria-label={`Próxima fecha: ${[proxima.fecha, proxima.lugar, proxima.ciudad].filter(Boolean).join(', ')}`}>
+            <span class="pegatina-sup">Próxima fecha</span>
+            {pf.dia && <span class="pegatina-dia">{pf.dia}</span>}
+            {pf.resto && <span class="pegatina-mes">{pf.resto}</span>}
+            {proxima.ciudad && <span class="pegatina-ciudad">{proxima.ciudad}</span>}
+          </a>
+        )}
+      </div>
+      {cinta.length > 0 && (
+        <div class="cinta">
+          <div class="cinta-pista">
+            {[0, 1].map((vuelta) => (
+              <ul class="cinta-grupo" aria-hidden={vuelta === 1 ? 'true' : undefined}>
+                {[...cinta, ...cinta].map((it) => (
+                  <li class="cinta-item">
+                    <Icono nombre={it.icono || 'estrella'} tam={22} />
+                    <span>{it.titulo}</span>
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .portada { min-height: max(85svh, 34rem); display: flex; flex-direction: column; background: var(--c-fondo); color: var(--c-texto); }
+  .portada--primera { margin-top: calc(-1 * var(--alto-cabecera)); min-height: max(100svh, 36rem); }
+  .portada--sin-foto { background: var(--noche); }
+  .portada-foto :global(img) { object-position: center 35%; }
+  .portada-velo { background:
+    linear-gradient(0deg, var(--c-fondo) 0%, color-mix(in srgb, var(--c-fondo) 55%, transparent) 30%, transparent 62%),
+    linear-gradient(90deg, color-mix(in srgb, var(--c-fondo) 70%, transparent), transparent 75%); }
+  .portada-disco { position: absolute; right: -18vmax; top: 8%; width: 60vmax; height: 60vmax; border-radius: 50%; z-index: -1;
+    background: repeating-radial-gradient(circle, color-mix(in srgb, var(--c-texto) 9%, transparent) 0 1px, transparent 1px 9px), radial-gradient(circle, var(--c-primario) 0 16%, transparent 16.5%);
+    opacity: .9; }
+  .portada-cuerpo { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 2.5rem; padding-top: 6rem; padding-bottom: 3rem; }
+  .portada--primera .portada-cuerpo { padding-top: calc(var(--alto-cabecera) + 4rem); }
+  @media (min-width: 900px) { .portada-cuerpo { flex-direction: row; align-items: flex-end; justify-content: space-between; padding-bottom: 4.5rem; } }
+  .portada-texto { max-width: 62rem; min-width: 0; }
+  .portada-titulo { margin-top: 1rem; font-size: clamp(3rem, 12.5vw, 8.5rem); line-height: .86; letter-spacing: .002em; overflow-wrap: break-word; text-shadow: 0 2px 30px color-mix(in srgb, var(--c-fondo) 40%, transparent); }
+  .portada-parrafo { margin-top: 1.5rem; max-width: 36rem; font-size: 1.125rem; opacity: .9; }
+  @media (min-width: 768px) { .portada-parrafo { font-size: 1.3rem; } }
+
+  /* Pegatina redonda con la próxima fecha */
+  .pegatina { flex-shrink: 0; align-self: flex-start; display: grid; place-content: center; justify-items: center; width: 9.5rem; height: 9.5rem; border-radius: 50%; padding: 1rem; text-align: center; text-decoration: none; background: var(--c-acento); color: var(--sobre-acento); transform: rotate(-9deg); box-shadow: 6px 6px 0 var(--c-primario); transition: transform .2s ease; }
+  .pegatina:hover { transform: rotate(-3deg) scale(1.04); }
+  @media (min-width: 900px) { .pegatina { align-self: flex-end; width: 12rem; height: 12rem; margin-bottom: 1rem; } }
+  .pegatina-sup, .pegatina-ciudad { font-family: var(--fuente-mono); font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; line-height: 1.2; }
+  .pegatina-dia { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; font-size: 3.4rem; line-height: .9; }
+  .pegatina-mes { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; font-size: 1.05rem; line-height: 1; }
+  @media (min-width: 900px) { .pegatina-dia { font-size: 4.6rem; } .pegatina-mes { font-size: 1.35rem; } .pegatina-sup, .pegatina-ciudad { font-size: .7rem; } }
+
+  /* Cinta corrida amarilla al pie (se para con «reducir movimiento») */
+  .cinta { position: relative; background: var(--c-acento); color: var(--sobre-acento); border-block: 3px solid var(--c-fondo); overflow: hidden; }
+  .cinta-pista { display: flex; width: max-content; animation: cinta 38s linear infinite; }
+  .cinta:hover .cinta-pista { animation-play-state: paused; }
+  .cinta-grupo { display: flex; flex-shrink: 0; }
+  .cinta-item { display: inline-flex; align-items: center; gap: .75rem; padding: .8rem 1.75rem; font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; font-size: 1.35rem; line-height: 1; white-space: nowrap; }
+  .cinta-item :global(svg) { color: var(--c-primario); }
+  @media (min-width: 768px) { .cinta-item { font-size: 1.8rem; padding: 1rem 2.25rem; } }
+  @keyframes cinta { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .cinta-pista { animation: none; } }
+</style>

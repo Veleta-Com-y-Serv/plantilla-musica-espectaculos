@@ -1,0 +1,64 @@
+---
+// Apartado de texto genérico sobre banda noche: antetítulo, título de cartel, párrafos, lista (`items` con icono) y
+// botón. Con `imagen`, fila 50/50 con la foto a sangre hasta el borde izquierdo (duotono). Lo usan los apartados
+// nuevos que pide el cliente (site.yaml: `tipo: texto`).
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+---
+
+{
+  s && (
+    <section id={id} class:list={['banda-noche texto-banda', { 'texto-banda--foto': s.imagen }]}>
+      {s.imagen && (
+        <div class="texto-foto duo">
+          <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1400} alto={1050} class="h-full w-full object-cover" />
+        </div>
+      )}
+      <div class="texto-cuerpo">
+        <div class:list={['texto-interior', { contenedor: !s.imagen, mitad: s.imagen }]}>
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          <div class="mt-6 max-w-3xl space-y-4 text-lg opacity-90">
+            {parrafos(s.texto).map((p) => <p>{p}</p>)}
+          </div>
+          {s.items.length > 0 && (
+            <ul class="texto-items">
+              {s.items.map((it) => (
+                <li class="flex gap-4">
+                  <Icono nombre={it.icono || 'nota'} class="resalte mt-1 shrink-0" tam={26} />
+                  <div>
+                    <p class="texto-item-titulo">{it.titulo}</p>
+                    {it.texto && <p class="text-sm opacity-75">{it.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.cta?.url && <p class="mt-10"><a class="btn" href={s.cta.url}>{s.cta.texto}</a></p>}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .texto-banda { display: grid; }
+  .texto-foto { aspect-ratio: 4 / 3; }
+  .texto-cuerpo { display: flex; align-items: center; }
+  .texto-interior { width: 100%; padding-block: var(--ritmo); }
+  .texto-banda--foto .texto-interior { padding-inline: 1rem; }
+  .texto-items { margin-top: 2rem; display: grid; gap: 1.25rem; }
+  @media (min-width: 640px) { .texto-items { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .texto-item-titulo { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; font-size: 1.5rem; line-height: 1; }
+  @media (min-width: 768px) {
+    .texto-interior { padding-block: var(--ritmo-md); }
+    .texto-banda--foto { grid-template-columns: 1fr 1fr; min-height: 32rem; }
+    .texto-foto { aspect-ratio: auto; height: 100%; }
+    .texto-banda--foto .texto-interior { max-width: 45rem; margin-right: auto; padding-inline: clamp(2rem, 5vw, 5rem) 2rem; }
+  }
+</style>

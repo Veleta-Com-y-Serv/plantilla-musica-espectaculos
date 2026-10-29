@@ -1,0 +1,62 @@
+---
+// Prensa y opiniones sobre banda amarilla a todo el ancho: `testimonios: [{texto, autor, nota}]`. La primera, enorme
+// en letra de cartel con comillas magenta; el resto, en columnas con filete. `nota` = medio, evento o fecha.
+// Sin opiniones ni titular, la sección no se pinta. No inventes opiniones.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const lista = s?.testimonios.filter((t) => t && t.texto) ?? [];
+const [primera, ...resto] = lista;
+const hayAlgo = s && (lista.length > 0 || s.titulo || s.texto);
+---
+
+{
+  s && hayAlgo && (
+    <Seccion id={Astro.props.id} banda="amarilla" class="prensa-banda">
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} partido />
+      {primera && (
+        <figure class="prensa-grande">
+          <span class="prensa-comillas" aria-hidden="true">“</span>
+          <blockquote class="prensa-cita">{primera.texto}</blockquote>
+          {(primera.autor || primera.nota) && (
+            <figcaption class="prensa-firma">
+              {primera.autor && <span class="prensa-autor">{primera.autor}</span>}
+              {primera.nota && <span class="prensa-nota">{primera.nota}</span>}
+            </figcaption>
+          )}
+        </figure>
+      )}
+      {resto.length > 0 && (
+        <ul class="prensa-resto">
+          {resto.map((t) => (
+            <li>
+              <figure>
+                <blockquote class="prensa-texto">«{t.texto}»</blockquote>
+                <figcaption class="prensa-firma">
+                  {t.autor && <span class="prensa-autor">{t.autor}</span>}
+                  {t.nota && <span class="prensa-nota">{t.nota}</span>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Seccion>
+  )
+}
+
+<style>
+  .prensa-banda { position: relative; overflow: hidden; }
+  .prensa-grande { position: relative; margin-top: 1rem; padding-top: 4.25rem; }
+  .prensa-comillas { position: absolute; left: -.04em; top: 0; font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-size: 10rem; line-height: .72; color: var(--c-primario); pointer-events: none; }
+  .prensa-cita { position: relative; font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; font-size: clamp(2.2rem, 7vw, 5.75rem); line-height: .95; max-width: 22ch; overflow-wrap: break-word; }
+  .prensa-firma { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1rem; margin-top: 1.5rem; font-family: var(--fuente-mono); font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; }
+  .prensa-autor { font-weight: 700; padding: .25rem .6rem; background: var(--c-fondo); color: var(--c-texto); }
+  .prensa-nota { opacity: .8; }
+  .prensa-resto { display: grid; gap: 2rem; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 3px solid currentColor; }
+  @media (min-width: 1024px) { .prensa-resto { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0; } .prensa-resto > li { padding-inline: 0 2rem; } .prensa-resto > li + li { padding-left: 2rem; border-left: 1px solid color-mix(in srgb, currentColor 35%, transparent); } }
+  .prensa-texto { font-size: 1.25rem; line-height: 1.45; font-weight: 600; }
+  @media (min-width: 1024px) { .prensa-grande { padding-top: 5.75rem; } .prensa-comillas { font-size: 14rem; } }
+</style>

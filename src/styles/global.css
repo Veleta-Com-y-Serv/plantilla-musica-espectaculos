@@ -1,0 +1,143 @@
+/* Música y espectáculos — estilo nocturno: cartel de gira. Noche + magenta + amarillo, letra de cartel condensada
+   enorme (Impact y familia, sin descargas), datos en monoespaciada de entrada de concierto, fotos en duotono magenta,
+   cinta corrida de la portada, entradas troqueladas y bandas de borde a borde (oscura, noche, magenta, amarilla y papel).
+   Todo sale de las cuatro variables de color: si el cliente pone fondo claro y texto oscuro, el papel pasa a oscuro
+   y el resto se recoloca sin romperse. */
+@import "tailwindcss";
+@import "./comun.css";
+@config "../../tailwind.config.mjs";
+
+:root {
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-titulos: Impact, Haettenschweiler, "Franklin Gothic Heavy", "Arial Narrow Bold", "Roboto Condensed", "sans-serif-condensed", "Arial Narrow", system-ui, sans-serif;
+  --fuente-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, "Roboto Mono", "Liberation Mono", monospace;
+  --radio: 0; --ritmo: 4.5rem; --ritmo-md: 7.5rem; --ancho: 90rem;
+  --alto-cabecera: 4.5rem;
+  /* Letra sobre acento y primario: negra si el color es claro, blanca si es oscuro. */
+  --sobre-acento: #0b0710;
+  --sobre-primario: #ffffff;
+  /* Bandas derivadas */
+  --noche: color-mix(in srgb, var(--c-fondo) 86%, var(--c-primario));
+  --negro: color-mix(in srgb, var(--c-fondo) 62%, #000);
+  --papel: color-mix(in srgb, var(--c-texto) 90%, var(--c-acento));
+  --sobre-papel: var(--c-fondo);
+  --linea: color-mix(in srgb, currentColor 18%, transparent);
+  --sombra-btn: var(--c-primario);
+  /* Color que resalta en cada banda (títulos de cartel, números grandes): lo redefine cada .banda-* */
+  --resalte: var(--c-acento);
+  /* Lo mismo para texto pequeño (AA): en papel, el magenta se oscurece */
+  --resalte-texto: var(--c-acento);
+  --trama: radial-gradient(color-mix(in srgb, currentColor 22%, transparent) 1.1px, transparent 1.7px) 0 0 / 13px 13px;
+}
+@supports (color: oklch(from red l c h)) {
+  :root {
+    --sobre-acento: oklch(from var(--c-acento) clamp(0, (0.7 - l) * 100, 1) 0 0);
+    --sobre-primario: oklch(from var(--c-primario) clamp(0, (0.7 - l) * 100, 1) 0 0);
+  }
+}
+
+@layer base {
+  body { font-family: var(--fuente-texto); font-size: 1.0625rem; line-height: 1.6; }
+  h1, h2, h3 { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; letter-spacing: .005em; line-height: .92; }
+  html { scroll-padding-top: calc(var(--alto-cabecera) + 1rem); }
+  main { padding-top: var(--alto-cabecera); }
+  ::selection { background: var(--c-acento); color: var(--sobre-acento); }
+}
+
+@layer components {
+  /* Bandas de color pleno, de borde a borde */
+  .banda-oscura { background: var(--c-fondo); color: var(--c-texto); }
+  .banda-noche { background: var(--noche); color: var(--c-texto); }
+  .banda-magenta { background: var(--c-primario); color: var(--sobre-primario); --resalte: var(--sobre-primario); --resalte-texto: var(--sobre-primario); --sombra-btn: var(--negro); }
+  .banda-amarilla { background: var(--c-acento); color: var(--sobre-acento); --resalte: var(--sobre-acento); --resalte-texto: var(--sobre-acento); --sombra-btn: var(--c-primario); }
+  .banda-papel { background: var(--papel); color: var(--sobre-papel); --resalte: var(--c-primario); --resalte-texto: color-mix(in srgb, var(--c-primario) 68%, var(--sobre-papel)); }
+  .trama { position: relative; isolation: isolate; }
+  .trama::after { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--trama); opacity: .55; pointer-events: none; }
+
+  /* Titulares */
+  .antetitulo { display: inline-flex; align-items: center; gap: .75rem; font-family: var(--fuente-mono); font-size: .8rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+  .antetitulo::before { content: ""; width: 2.25rem; height: 3px; background: var(--resalte); flex-shrink: 0; }
+  .titulo-seccion { font-size: clamp(2.75rem, 9vw, 6.5rem); margin-top: .75rem; }
+  .titular { margin-bottom: 3rem; max-width: 56rem; }
+  .titulo-seccion { overflow-wrap: normal; hyphens: auto; }
+  /* Títulos en media banda (filas 50/50): un poco más pequeños para que no partan palabras */
+  @media (min-width: 768px) { .mitad .titulo-seccion { font-size: clamp(2.75rem, 5.2vw, 6rem); } }
+  .titular-texto { margin-top: 1.1rem; font-size: 1.15rem; max-width: 38rem; opacity: .82; }
+  @media (min-width: 1024px) {
+    .titular--partido { max-width: none; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 4rem; align-items: end; }
+    .titular--partido .titular-texto { margin-top: 0; padding-bottom: .5rem; }
+  }
+  .resalte { color: var(--resalte); }
+  .hueco { color: transparent; -webkit-text-stroke: 2px var(--resalte); }
+  .mono { font-family: var(--fuente-mono); letter-spacing: .04em; }
+
+  /* Botones de cartel: bloque amarillo con sombra dura (magenta; negra sobre magenta) */
+  .btn, .btn-sec { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; letter-spacing: .05em; font-size: 1.15rem; min-height: 3rem; padding-inline: 1.6rem; border: 2px solid transparent; }
+  .btn { background: var(--c-acento); color: var(--sobre-acento); border-color: var(--c-acento); box-shadow: 5px 5px 0 var(--sombra-btn); }
+  .btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--sombra-btn); }
+  .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--sombra-btn); }
+  .banda-amarilla .btn { background: var(--c-fondo); color: var(--c-texto); border-color: var(--c-fondo); }
+  .btn-sec { color: inherit; border-color: currentColor; background: transparent; }
+  .btn-sec:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
+  .acciones { display: flex; flex-wrap: wrap; gap: 1rem 1.25rem; }
+
+  /* Fotos en duotono: gris + multiplicar sobre magenta (al pasar, color) */
+  .duo { position: relative; overflow: hidden; background: var(--c-primario); isolation: isolate; }
+  .duo img { filter: grayscale(1) contrast(1.12) brightness(1.05); mix-blend-mode: multiply; transition: filter .4s ease, transform .6s ease; }
+  .duo:hover img, .duo:focus-within img { filter: none; mix-blend-mode: normal; }
+
+  /* Etiqueta de estado (Agotado, Últimas entradas…) */
+  .sello { display: inline-flex; align-items: center; gap: .4rem; padding: .25rem .6rem; font-family: var(--fuente-mono); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; border: 1.5px solid currentColor; }
+  .sello--caliente { background: var(--c-primario); color: var(--sobre-primario); border-color: var(--c-primario); }
+  .sello--agotado { text-decoration: line-through; opacity: .7; }
+
+  /* Cabecera fija a todo el ancho: sólida; transparente sobre la portada a sangre (script en Header.astro) */
+  .cabecera--noche { position: fixed; top: 0; left: 0; right: 0; background: color-mix(in srgb, var(--c-fondo) 92%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid color-mix(in srgb, var(--c-texto) 12%, transparent); transition: background-color .25s ease, border-color .25s ease; }
+  .cabecera--noche.es-transparente { background: linear-gradient(180deg, color-mix(in srgb, var(--c-fondo) 60%, transparent), transparent); backdrop-filter: none; -webkit-backdrop-filter: none; border-color: transparent; }
+  .cabecera--noche .cabecera-fila { min-height: var(--alto-cabecera); gap: 1.25rem; }
+  .cabecera--noche .marca-inicial { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; flex-shrink: 0; border-radius: 50%; background: var(--c-acento); color: var(--sobre-acento); font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; font-size: 1.25rem; line-height: 1; box-shadow: inset 0 0 0 4px var(--c-acento), inset 0 0 0 5.5px var(--sobre-acento), 3px 3px 0 var(--c-primario); }
+  .cabecera--noche .marca-nombre { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; font-size: 1.55rem; letter-spacing: .02em; line-height: 1; }
+  .cabecera--noche .cabecera-nav { gap: 1.75rem; }
+  .cabecera--noche .cabecera-nav a { font-family: var(--fuente-mono); font-weight: 700; text-transform: uppercase; letter-spacing: .14em; font-size: .8rem; padding-block: .5rem; border-bottom: 2px solid transparent; }
+  .cabecera--noche .cabecera-nav a:hover { border-bottom-color: var(--c-acento); }
+  .cabecera--noche .cabecera-cta { min-height: 2.75rem; font-size: 1rem; padding-inline: 1.1rem; box-shadow: 4px 4px 0 var(--c-primario); }
+  .cabecera--noche .menu-movil summary { min-height: 2.75rem; padding-inline: .9rem; font-family: var(--fuente-mono); text-transform: uppercase; letter-spacing: .14em; font-size: .8rem; border: 2px solid currentColor; }
+  .cabecera--noche .menu-movil[open] summary { background: var(--c-acento); color: var(--sobre-acento); border-color: var(--c-acento); }
+  .cabecera--noche .menu-movil-panel { background: var(--c-fondo); border-bottom: 4px solid var(--c-primario); padding: .5rem 1rem 1.5rem; max-height: calc(100svh - var(--alto-cabecera)); overflow-y: auto; }
+  .cabecera--noche .menu-movil-panel a:not(.btn) { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; font-size: 1.9rem; line-height: 1.1; padding-block: .6rem; }
+  .cabecera--noche .menu-movil-panel .btn { margin-top: 1.25rem; margin-right: 6px; }
+  @media (min-width: 1100px) {
+    .cabecera--noche .cabecera-nav { display: flex; }
+    .cabecera--noche .cabecera-cta { display: inline-flex; }
+    .cabecera--noche .menu-movil { display: none; }
+  }
+  @media (max-width: 1099px) {
+    .cabecera--noche .cabecera-nav, .cabecera .cabecera-cta { display: none !important; }
+    .cabecera--noche .menu-movil { display: block !important; }
+  }
+
+  /* Formulario */
+  .campo label { font-family: var(--fuente-mono); text-transform: uppercase; letter-spacing: .14em; font-size: .75rem; font-weight: 700; }
+  .campo input, .campo textarea, .campo select { width: 100%; min-height: 3rem; font: inherit; color: inherit; background: color-mix(in srgb, currentColor 6%, transparent); padding: .75rem .9rem; border: 0; border-bottom: 2px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: 0; }
+  .campo select option { background: var(--c-fondo); color: var(--c-texto); }
+  .campo input:focus, .campo textarea:focus, .campo select:focus { outline: none; border-bottom-color: var(--c-acento); background: color-mix(in srgb, currentColor 10%, transparent); }
+  .campo-doble { display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .campo-doble { grid-template-columns: 1fr 1fr; } }
+  .campo-check input { width: 1.25rem; height: 1.25rem; accent-color: var(--c-acento); }
+  .formulario .btn { margin-top: .5rem; }
+
+  /* Pie: negro, nombre enorme en hueco de borde a borde y columnas */
+  .pie--noche { background: var(--negro); color: var(--c-texto); padding-top: 0; }
+  .pie--noche .pie-cuerpo { padding-top: 3.5rem; }
+  .pie--noche .pie-titulo { color: var(--c-acento); opacity: 1; font-family: var(--fuente-mono); font-size: .75rem; letter-spacing: .2em; font-weight: 700; }
+  .pie--noche .pie-nombre { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; font-size: 1.75rem; line-height: 1; }
+  .pie--noche .pie-rejilla { gap: 2.5rem; }
+  @media (min-width: 768px) { .pie--noche .pie-rejilla { grid-template-columns: 1.6fr 1.2fr 1fr 1.2fr; } }
+  .pie--noche .pie-redes a { border: 1.5px solid currentColor; border-radius: 50%; padding: .55rem; }
+  .pie--noche .pie-redes a:hover { background: var(--c-acento); color: var(--sobre-acento); border-color: var(--c-acento); }
+  .pie-gigante { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; font-size: clamp(3rem, 14.5vw, 15rem); line-height: .82; letter-spacing: .005em; color: transparent; -webkit-text-stroke: 2px var(--c-primario); overflow-wrap: anywhere; padding-block: 2rem 0; }
+  @media (min-width: 768px) { .pie-gigante { -webkit-text-stroke-width: 3px; } }
+
+  .texto-largo h2 { font-size: 2rem; }
+  .texto-largo a:not(.btn) { color: var(--resalte-texto); }
+}

@@ -1,0 +1,75 @@
+---
+// Contratación partida 50/50 a sangre: a la izquierda, magenta con trama, titular, texto, pasos numerados
+// (`items: [{titulo, texto}]`) y `cta` (p. ej. WhatsApp); a la derecha, sobre noche, el formulario de contratación
+// (fecha, tipo de evento, lugar…). `tipos_evento` = cadena con «;» (una opción por línea en el editor);
+// `boton_formulario` opcional.
+import { seccion, puntos, esExterno } from '../../data/site';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const pasos = s?.items.filter((it) => it && it.titulo) ?? [];
+const tipos = puntos(s?.tipos_evento);
+const boton = (s?.boton_formulario as string) || 'Pedir presupuesto';
+const esWhatsapp = (u?: string) => /wa\.me|whatsapp/i.test(u ?? '');
+---
+
+{
+  s && (
+    <section id={id} class="contratacion">
+      <div class="contr-izq banda-magenta trama">
+        <div class="contr-interior contr-interior--izq mitad">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          {s.texto && <p class="mt-6 max-w-xl text-lg">{s.texto}</p>}
+          {pasos.length > 0 && (
+            <ol class="pasos">
+              {pasos.map((p, i) => (
+                <li class="paso">
+                  <span class="paso-num" aria-hidden="true">{i + 1}</span>
+                  <div>
+                    <h3 class="paso-titulo">{p.titulo}</h3>
+                    {p.texto && <p class="paso-texto">{p.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
+          {s.cta && (
+            <p class="mt-10">
+              <a class="btn-sec" href={s.cta.url} {...(esExterno(s.cta.url) ? { target: '_blank', rel: 'noopener' } : {})}>
+                {esWhatsapp(s.cta.url) && <Icono nombre="whatsapp" tam={22} />}
+                {s.cta.texto}
+              </a>
+            </p>
+          )}
+        </div>
+      </div>
+      <div class="contr-der banda-oscura">
+        <div class="contr-interior contr-interior--der">
+          <p class="contr-form-titulo">{boton}</p>
+          <FormularioContacto prefijo={`${id}-f`} boton={boton} evento tipos={tipos} asunto={`Contratación: ${s.titulo || 'presupuesto'}`} />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .contratacion { display: grid; }
+  .contr-interior { padding: var(--ritmo) 1rem; }
+  @media (min-width: 1024px) {
+    .contratacion { grid-template-columns: 1fr 1fr; }
+    .contr-interior { padding-block: var(--ritmo-md); }
+    .contr-interior--izq { max-width: 45rem; margin-left: auto; padding-inline: 2rem clamp(2rem, 5vw, 5rem); }
+    .contr-interior--der { max-width: 45rem; margin-right: auto; padding-inline: clamp(2rem, 5vw, 5rem) 2rem; }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) { .contr-interior { padding-inline: 2rem; } }
+  .pasos { margin-top: 2.5rem; display: grid; gap: 0; border-top: 2px solid currentColor; }
+  .paso { display: grid; grid-template-columns: 3.25rem 1fr; gap: 1rem; align-items: start; padding-block: 1.1rem; border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent); }
+  .paso-num { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; font-size: 3rem; line-height: .85; color: transparent; -webkit-text-stroke: 2px var(--resalte); }
+  .paso-titulo { font-size: 1.6rem; line-height: 1; }
+  .paso-texto { margin-top: .3rem; opacity: .9; }
+  .contr-form-titulo { font-family: var(--fuente-titulos); font-weight: 900; font-synthesis: none; text-transform: uppercase; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin-bottom: 1.75rem; color: var(--c-acento); }
+</style>

@@ -1,0 +1,77 @@
+[
+  {
+    "fichero": "fotos/hero.jpg",
+    "aspecto": "16:9",
+    "prompt": "Escenario de concierto al aire libre de noche en la plaza de una ciudad mediterránea: batería, micrófonos en pie y amplificadores sobre el escenario, haces de focos magenta y ámbar cruzándose entre humo, guirnaldas de bombillas al fondo, encuadre amplio y frontal desde abajo, sin personas, sin texto ni logotipos"
+  },
+  {
+    "fichero": "fotos/espectaculo-verbena.jpg",
+    "aspecto": "4:3",
+    "prompt": "Gran escenario de verbena en la plaza de un pueblo de Murcia por la noche, con estructura de focos, luces de colores magenta y amarillo, guirnaldas de bombillas sobre la plaza y fachadas encaladas, vista general desde el centro de la plaza, sin personas, sin texto ni carteles"
+  },
+  {
+    "fichero": "fotos/espectaculo-boda.jpg",
+    "aspecto": "4:3",
+    "prompt": "Jardín de una finca de boda de noche con guirnaldas de luces cálidas, pista de baile de madera y un pequeño escenario con dos micrófonos, guitarra acústica y teclado, mesas vestidas desenfocadas al fondo, sin personas, sin texto"
+  },
+  {
+    "fichero": "fotos/espectaculo-tributo.jpg",
+    "aspecto": "4:3",
+    "prompt": "Escenario de sala de conciertos con estética de los años ochenta: sintetizador retro, bola de espejos girando, tubos de luz de neón rosa y focos amarillos entre humo, encuadre en diagonal, sin personas, sin texto legible ni marcas"
+  },
+  {
+    "fichero": "fotos/espectaculo-acustico.jpg",
+    "aspecto": "4:3",
+    "prompt": "Rincón íntimo de una sala pequeña: guitarra acústica en su soporte, taburete alto de madera, micrófono vintage y lámpara cálida sobre una alfombra, pared de ladrillo oscuro detrás, luz tenue y cálida, sin personas, sin texto"
+  },
+  {
+    "fichero": "fotos/banda-escenario.jpg",
+    "aspecto": "4:3",
+    "prompt": "Vista desde el fondo del escenario hacia la sala: batería en primer plano desenfocada, amplificadores, cables por el suelo y haces de focos magenta y blancos atravesando el humo, sala vacía, sin personas, sin texto ni logotipos"
+  },
+  {
+    "fichero": "fotos/video-plaza.jpg",
+    "aspecto": "16:9",
+    "prompt": "Plaza mayor de una ciudad española de noche iluminada por un escenario al fondo con focos magenta y ámbar, guirnaldas de luces cruzando la plaza, suelo de piedra brillante, plano general cinematográfico, sin personas, sin texto"
+  },
+  {
+    "fichero": "fotos/video-boda.jpg",
+    "aspecto": "16:9",
+    "prompt": "Pista de baile de una boda de noche bajo una carpa con guirnaldas de bombillas, bola de espejos que proyecta destellos y focos cálidos, confeti en el suelo, sin personas, sin texto"
+  },
+  {
+    "fichero": "fotos/video-sala.jpg",
+    "aspecto": "16:9",
+    "prompt": "Sala de conciertos vacía con el escenario iluminado por focos magenta y amarillos, humo denso, pie de micrófono en el centro y batería al fondo, encuadre desde la pista, sin personas, sin texto ni logotipos"
+  },
+  {
+    "fichero": "fotos/galeria-1.jpg",
+    "aspecto": "1:1",
+    "prompt": "Primer plano de unas baquetas apoyadas sobre la caja de una batería, platillos brillantes, luz magenta lateral y fondo negro, sin personas, sin marcas"
+  },
+  {
+    "fichero": "fotos/galeria-2.jpg",
+    "aspecto": "1:1",
+    "prompt": "Micrófono vintage plateado en su pie a contraluz de un foco amarillo, humo suave y fondo oscuro, sin personas, sin texto"
+  },
+  {
+    "fichero": "fotos/galeria-3.jpg",
+    "aspecto": "1:1",
+    "prompt": "Mesa de mezclas de sonido en penumbra con faders y botones iluminados por pequeñas luces de colores, primer plano en diagonal, sin personas, sin texto legible ni marcas"
+  },
+  {
+    "fichero": "fotos/galeria-4.jpg",
+    "aspecto": "1:1",
+    "prompt": "Guitarra eléctrica apoyada en un amplificador sobre un escenario, luz roja y magenta, cables enrollados en el suelo, sin personas, sin marcas ni logotipos"
+  },
+  {
+    "fichero": "fotos/galeria-5.jpg",
+    "aspecto": "1:1",
+    "prompt": "Confeti dorado y serpentinas cayendo sobre un escenario iluminado por focos blancos y magenta, vista desde abajo, sin personas, sin texto"
+  },
+  {
+    "fichero": "fotos/galeria-6.jpg",
+    "aspecto": "1:1",
+    "prompt": "Teclado sintetizador sobre un soporte en un escenario oscuro, luces azules y magenta reflejadas en las teclas, sin personas, sin texto legible ni marcas"
+  }
+]

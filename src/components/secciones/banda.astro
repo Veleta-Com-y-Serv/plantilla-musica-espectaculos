@@ -1,0 +1,82 @@
+---
+// La banda (quiénes somos) sobre papel: fila 50/50 con el texto (párrafos separados por línea en blanco) y la
+// `imagen` a sangre hasta el borde derecho; debajo, el «cartel» con las `personas: [{nombre, cargo, foto, texto}]`
+// en columnas (foto redonda en duotono; sin foto, la silueta /placeholders/persona.svg). `cta` opcional.
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const personas = s?.personas.filter((p) => p && p.nombre) ?? [];
+const columnas = Math.min(Math.max(personas.length, 1), 6);
+---
+
+{
+  s && (
+    <section id={id} class="banda-papel banda-seccion">
+      <div class:list={['banda-fila', { 'banda-fila--sin-foto': !s.imagen }]}>
+        <div class="banda-texto">
+          <div class="banda-interior mitad">
+            {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+            {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+            <div class="mt-7 space-y-4 text-lg">
+              {parrafos(s.texto).map((p) => <p>{p}</p>)}
+            </div>
+            {s.cta && <p class="mt-9"><a class="btn" href={s.cta.url}>{s.cta.texto}</a></p>}
+          </div>
+        </div>
+        {s.imagen && (
+          <div class="banda-foto duo">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1400} alto={1050} class="h-full w-full object-cover" />
+          </div>
+        )}
+      </div>
+      {personas.length > 0 && (
+        <div class="contenedor">
+          <ul class="cartel" style={`--cols:${columnas}`}>
+            {personas.map((p) => (
+              <li class="cartel-persona">
+                <div class="cartel-foto duo">
+                  <Imagen src={p.foto || '/placeholders/persona.svg'} alt={p.nombre} ancho={300} alto={300} class="h-full w-full object-cover" />
+                </div>
+                <div class="min-w-0">
+                  {p.cargo && <p class="cartel-cargo">{p.cargo}</p>}
+                  <h3 class="cartel-nombre">{p.nombre}</h3>
+                  {p.texto && <p class="cartel-texto">{p.texto}</p>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .banda-seccion { padding-bottom: var(--ritmo); }
+  @media (min-width: 768px) { .banda-seccion { padding-bottom: var(--ritmo-md); } }
+  .banda-fila { display: grid; }
+  .banda-texto { display: flex; align-items: center; }
+  .banda-interior { width: 100%; padding: var(--ritmo) 1rem 3rem; }
+  .banda-foto { aspect-ratio: 4 / 3; }
+  @media (min-width: 768px) {
+    .banda-fila { grid-template-columns: 1fr 1fr; min-height: 36rem; }
+    .banda-fila--sin-foto { grid-template-columns: 1fr; min-height: 0; }
+    .banda-foto { aspect-ratio: auto; height: 100%; }
+    .banda-interior { max-width: 45rem; margin-left: auto; padding: var(--ritmo-md) clamp(2rem, 5vw, 5rem) var(--ritmo-md) 2rem; }
+    .banda-fila--sin-foto .banda-interior { max-width: var(--ancho); margin-inline: auto; padding-bottom: 3rem; }
+  }
+  .cartel { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); margin-top: 3rem; border-top: 3px solid currentColor; }
+  @media (min-width: 560px) { .cartel { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; } }
+  @media (min-width: 1024px) { .cartel { grid-template-columns: repeat(min(var(--cols), 3), minmax(0, 1fr)); } }
+  @media (min-width: 1280px) { .cartel { grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: 1.5rem; } }
+  .cartel-persona { display: flex; gap: 1rem; align-items: center; padding-block: 1.25rem; border-bottom: 1px solid var(--linea); }
+  @media (min-width: 1280px) { .cartel-persona { flex-direction: column; align-items: flex-start; border-bottom: 0; padding-top: 1.75rem; } }
+  .cartel-foto { flex-shrink: 0; width: 4.5rem; height: 4.5rem; border-radius: 50%; }
+  @media (min-width: 1280px) { .cartel-foto { width: 6rem; height: 6rem; } }
+  .cartel-cargo { font-family: var(--fuente-mono); font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--resalte-texto); }
+  .cartel-nombre { margin-top: .25rem; font-size: 1.75rem; line-height: .95; overflow-wrap: anywhere; }
+  .cartel-texto { margin-top: .4rem; font-size: .92rem; opacity: .78; }
+</style>

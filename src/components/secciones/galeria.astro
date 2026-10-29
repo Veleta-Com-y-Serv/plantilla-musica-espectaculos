@@ -1,0 +1,55 @@
+---
+// Galería de borde a borde, sin márgenes: `galeria: [ruta, ruta…]` en cuadrados (2 columnas en móvil, 3 en tableta y
+// escritorio; con 4, 8 o 12 fotos, 4 columnas). Duotono magenta que se vuelve color al pasar. Titular opcional encima.
+import { seccion } from '../../data/site';
+import { altGaleria } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const fotos = s?.galeria.filter(Boolean) ?? [];
+const cuatro = fotos.length % 4 === 0 && fotos.length % 3 !== 0;
+---
+
+{
+  s && (fotos.length > 0 || s.titulo || s.texto) && (
+    <section id={id} class="banda-oscura galeria-banda">
+      {(s.titulo || s.antetitulo || s.texto) && (
+        <div class="contenedor">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} partido />
+        </div>
+      )}
+      {fotos.length > 0 && (
+        <ul class:list={['mosaico', { 'mosaico--cuatro': cuatro }]}>
+          {fotos.map((src, i) => (
+            <li class="mosaico-celda duo">
+              <Imagen src={src} alt={altGaleria(i)} ancho={800} alto={800} class="h-full w-full object-cover" />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .galeria-banda { padding-top: var(--ritmo); }
+  @media (min-width: 768px) { .galeria-banda { padding-top: var(--ritmo-md); } }
+  .galeria-banda .titular { margin-bottom: 2.5rem; }
+  .mosaico { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mosaico-celda { aspect-ratio: 1; min-width: 0; }
+  .mosaico-celda:hover :global(img) { transform: scale(1.05); }
+  @media (min-width: 768px) {
+    .mosaico { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .mosaico--cuatro { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .mosaico-celda { aspect-ratio: 4 / 3; }
+  }
+  /* Una foto suelta al final ocupa toda la fila */
+  .mosaico-celda:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 2 / 1; }
+  @media (min-width: 768px) {
+    .mosaico-celda:last-child:nth-child(odd) { grid-column: auto; aspect-ratio: 4 / 3; }
+    .mosaico:not(.mosaico--cuatro) .mosaico-celda:last-child:nth-child(3n + 1) { grid-column: 1 / -1; aspect-ratio: 3 / 1; }
+    .mosaico:not(.mosaico--cuatro) .mosaico-celda:last-child:nth-child(3n + 2) { grid-column: span 2; aspect-ratio: auto; }
+  }
+</style>

@@ -1,0 +1,157 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Una sola página: el menú apunta a anclas (#id-de-sección).
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas planas: nunca una lista dentro de un elemento de lista. Precios siempre entre comillas.
+nombre: Neón Verbena
+eslogan: Banda de versiones y espectáculo en directo de Murcia. Bodas, fiestas y salas.
+sector: musica
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = disco con la inicial + nombre.
+colores:
+  primario: "#e0218a"   # magenta: bandas de color pleno, sombra de los botones y duotono de las fotos
+  acento: "#ffd60a"     # amarillo: botones, cinta de la portada, prensa y resaltados
+  fondo: "#0b0710"      # noche: tema oscuro por defecto (con fondo claro el diseño también funciona)
+  texto: "#f7f1f8"
+contacto:
+  telefono: "968 41 07 29"
+  email: contratacion@neonverbena.es
+  direccion: Calle Vara de Rey 6, 30001 Murcia (Murcia)
+  horario: "Atendemos de lunes a viernes, de 10:00 a 14:00 y de 17:00 a 20:00."
+  whatsapp: "+34 644 21 90 37"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: ""
+  linkedin: ""
+menu:
+  - { texto: Fechas, url: "/#fechas" }
+  - { texto: Espectáculos, url: "/#espectaculos" }
+  - { texto: La banda, url: "/#banda" }
+  - { texto: Vídeos, url: "/#videos" }
+  - { texto: Contratación, url: "/#contratacion" }
+boton_cabecera: { texto: Contrátanos, url: "/#contratacion" }
+seo:
+  titulo: Neón Verbena · Banda de versiones para bodas y fiestas en Murcia
+  descripcion: "Banda de versiones y orquesta espectáculo de Murcia para fiestas patronales, bodas, empresas y salas. Seis músicos con sonido y luces propios."
+  tipo: EntertainmentBusiness
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Banda en directo · Murcia
+    titulo: Que no pare la fiesta
+    texto: "Seis músicos, tres horas de éxitos y un escenario que se ve desde el final de la plaza. Tocamos en bodas, fiestas patronales, empresas y salas de toda la Región."
+    imagen: /fotos/hero.jpg
+    cta: { texto: Pide fecha, url: "/#contratacion" }
+    cta_secundario: { texto: Próximos conciertos, url: "/#fechas" }
+    items:
+      - { titulo: Fiestas patronales, icono: estrella }
+      - { titulo: Bodas, icono: corazon }
+      - { titulo: Eventos de empresa, icono: maletin }
+      - { titulo: Salas y festivales, icono: nota }
+      - { titulo: Sonido y luces propios, icono: rayo }
+
+  fechas:
+    activa: true
+    antetitulo: En gira
+    titulo: Próximas fechas
+    texto: "Los conciertos abiertos al público. Las bodas y las fiestas privadas no salen aquí."
+    nota: "Hora de apertura de puertas. Las entradas se compran en la web de cada sala."
+    cta: { texto: Quiero que toquéis en mi fiesta, url: "/#contratacion" }
+    fechas:
+      - { fecha: "14 nov 2026", lugar: Sala Magnolia, ciudad: Murcia, hora: "22:30", estado: Últimas entradas, url: "https://entradas.example.com/neon-verbena-murcia" }
+      - { fecha: "21 nov 2026", lugar: Auditorio Municipal, ciudad: Lorca, hora: "21:00", estado: "", url: "https://entradas.example.com/neon-verbena-lorca" }
+      - { fecha: "5 dic 2026", lugar: Plaza Mayor, ciudad: Yecla, hora: "23:00", estado: Entrada libre, url: "" }
+      - { fecha: "19 dic 2026", lugar: "Sala Magnolia, especial Navidad", ciudad: Murcia, hora: "22:00", estado: Agotado, url: "" }
+      - { fecha: "31 dic 2026", lugar: Cotillón de Nochevieja del Hotel Costa Cálida, ciudad: San Javier, hora: "00:30", estado: "", url: "https://entradas.example.com/neon-verbena-nochevieja" }
+      - { fecha: "13 feb 2027", lugar: Carpa del Carnaval, ciudad: Águilas, hora: "23:30", estado: Entrada libre, url: "" }
+
+  espectaculos:
+    activa: true
+    antetitulo: Espectáculos
+    titulo: Elige cómo suena tu noche
+    texto: "Cuatro formatos para cuatro tipos de fiesta. Todos con repertorio a la carta: dinos las canciones que no pueden faltar."
+    cta: { texto: Pide presupuesto, url: "/#contratacion" }
+    espectaculos:
+      - { titulo: Verbena total, texto: "El espectáculo grande: pop, rock, rumba y los éxitos que canta todo el pueblo. Escenario, luces y dos pases con descanso.", duracion: "3 h en dos pases", formato: "Banda completa · 6 músicos", imagen: /fotos/espectaculo-verbena.jpg }
+      - { titulo: Bodas en directo, texto: "Ceremonia en acústico, cóctel en trío y fiesta con la banda y DJ hasta el final. Ensayamos vuestro primer baile.", duracion: "De la ceremonia al último baile", formato: "Dúo, trío o banda + DJ", imagen: /fotos/espectaculo-boda.jpg }
+      - { titulo: Tributo 80 y 90, texto: "Un viaje por la movida, el pop español y los himnos de las verbenas de los noventa, con vestuario y vídeo en pantalla.", duracion: "2 h", formato: "Banda + coristas", imagen: /fotos/espectaculo-tributo.jpg }
+      - { titulo: Acústico, texto: "Formato pequeño para salas, restaurantes, cenas de empresa y terrazas. Sonido cuidado a volumen de conversación.", duracion: "90 min", formato: "Trío acústico", imagen: /fotos/espectaculo-acustico.jpg }
+
+  banda:
+    activa: true
+    antetitulo: La banda
+    titulo: Doce años subiendo a escenarios
+    texto: "Empezamos tocando en las fiestas de los barrios de Murcia y hoy actuamos por toda la Región y las provincias vecinas.\n\nLlevamos nuestro propio equipo de sonido e iluminación y un técnico en cada actuación. Tú solo pones la fecha y las ganas."
+    imagen: /fotos/banda-escenario.jpg
+    personas:
+      - { nombre: Laura Méndez, cargo: Voz, foto: /placeholders/persona.svg, texto: "Diez años cantando en orquestas de verbena." }
+      - { nombre: Rubén Sáez, cargo: Guitarra y dirección musical, foto: /placeholders/persona.svg, texto: "Arregla cada canción para que suene a banda." }
+      - { nombre: Ana Lucas, cargo: Teclados y coros, foto: /placeholders/persona.svg, texto: "" }
+      - { nombre: Pedro Gil, cargo: Bajo, foto: /placeholders/persona.svg, texto: "" }
+      - { nombre: Javi Moreno, cargo: Batería, foto: /placeholders/persona.svg, texto: "" }
+      - { nombre: Clara Ibáñez, cargo: DJ y técnica de sonido, foto: /placeholders/persona.svg, texto: "" }
+
+  videos:
+    activa: true
+    antetitulo: Vídeos
+    titulo: Míranos en directo
+    texto: "Grabados tal cual, sin retoques: así sonamos en una plaza, en una boda y en una sala."
+    items:
+      - { titulo: Directo en la Plaza Mayor, texto: "Fiestas patronales, verano de 2026.", duracion: "4:12", url: "https://www.youtube.com/", imagen: /fotos/video-plaza.jpg }
+      - { titulo: El primer baile, texto: "Medley de boda en una finca de la huerta.", duracion: "3:05", url: "https://www.youtube.com/", imagen: /fotos/video-boda.jpg }
+      - { titulo: Tributo 80 y 90, texto: "El final del espectáculo en la Sala Magnolia.", duracion: "5:40", url: "https://www.youtube.com/", imagen: /fotos/video-sala.jpg }
+
+  galeria:
+    activa: true
+    antetitulo: Galería
+    titulo: Noches que no se olvidan
+    galeria:
+      - /fotos/galeria-1.jpg
+      - /fotos/galeria-2.jpg
+      - /fotos/galeria-3.jpg
+      - /fotos/galeria-4.jpg
+      - /fotos/galeria-5.jpg
+      - /fotos/galeria-6.jpg
+
+  prensa:
+    activa: true
+    antetitulo: Lo que dicen
+    titulo: Prensa y opiniones
+    testimonios:
+      - { texto: "Llenaron la plaza hasta las cuatro de la mañana y nadie se movió de la pista.", autor: Comisión de fiestas, nota: "Fiestas patronales, agosto de 2026" }
+      - { texto: "Ensayaron nuestro primer baile y lo clavaron. Los invitados todavía nos lo comentan.", autor: Marta y Andrés, nota: Boda en Molina de Segura }
+      - { texto: "Profesionales de principio a fin: llegaron con tiempo, montaron rápido y el sonido fue perfecto.", autor: Elena R., nota: Cena de empresa en Cartagena }
+      - { texto: "Una de las bandas de versiones con más tablas de la Región.", autor: Crónica de un concierto, nota: Prensa local }
+
+  contratacion:
+    activa: true
+    antetitulo: Contratación
+    titulo: Que suene tu fiesta
+    texto: "Cuéntanos la fecha, el sitio y el tipo de evento. Te respondemos en 24 horas laborables con la disponibilidad y una propuesta cerrada."
+    boton_formulario: Pedir presupuesto
+    tipos_evento: "Boda; Fiestas patronales; Evento de empresa; Sala o festival; Fiesta privada"
+    cta: { texto: Escríbenos por WhatsApp, url: "https://wa.me/34644219037" }
+    items:
+      - { titulo: Nos dices la fecha, texto: "Y el lugar, el tipo de fiesta y cuánta gente esperas." }
+      - { titulo: Te mandamos propuesta, texto: "Formato, duración, repertorio y todo lo que incluye." }
+      - { titulo: Reservamos el día, texto: "Con una señal, y el resto el día de la actuación." }
+      - { titulo: Subimos al escenario, texto: "Llegamos con tiempo, montamos y probamos sonido." }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas
+    titulo: Antes de contratar
+    preguntas:
+      - { pregunta: "¿Con cuánta antelación hay que reservar?", respuesta: "Para verano y Navidad, cuanto antes: las fechas de fiestas se cierran con meses de antelación. El resto del año suele bastar con dos o tres meses." }
+      - { pregunta: "¿Lleváis equipo de sonido y luces?", respuesta: "Sí. Llevamos sonido, iluminación y técnico propios, adaptados al tamaño del sitio. Si el lugar ya tiene escenario o equipo, lo usamos y ajustamos la propuesta." }
+      - { pregunta: "¿Podemos elegir las canciones?", respuesta: "Claro. Te enviamos nuestro repertorio y nos dices las que no pueden faltar y las que no quieres oír. Para las bodas preparamos el primer baile." }
+      - { pregunta: "¿Tocáis fuera de la Región de Murcia?", respuesta: "Sí: toda la Región, Alicante, Almería y Albacete. Para otras provincias, pregúntanos." }
+      - { pregunta: "¿Qué necesitáis el día de la actuación?", respuesta: "Un espacio para el escenario, un enchufe cerca y acceso para descargar. Llegamos unas tres horas antes para montar y probar sonido." }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Hablemos
+    texto: "Llámanos, escríbenos o déjanos un mensaje. Si es para una fecha concreta, dínosla y te contamos si está libre."
+    boton_formulario: Enviar mensaje

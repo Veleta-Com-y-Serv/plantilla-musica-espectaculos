@@ -1,0 +1,95 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: musica-espectaculos
+nombre: Música y espectáculos
+descripcion: "Web nocturna de cartel de gira para bandas, orquestas, DJ, teatro y salas: fechas, vídeos y contratación."
+sectores:
+  - { id: musica, nombre: Música }
+  - { id: dj, nombre: DJ }
+  - { id: banda, nombre: Banda de música }
+  - { id: orquesta, nombre: Orquesta }
+  - { id: espectaculos, nombre: Espectáculos }
+  - { id: teatro, nombre: Teatro }
+  - { id: sala-conciertos, nombre: Sala de conciertos }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: fechas, nombre: Próximas fechas }
+  - { id: espectaculos, nombre: Espectáculos }
+  - { id: banda, nombre: La banda }
+  - { id: videos, nombre: Vídeos }
+  - { id: galeria, nombre: Galería }
+  - { id: prensa, nombre: Prensa y opiniones }
+  - { id: contratacion, nombre: Contratación }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: contacto, nombre: Contacto }
+estilo: nocturno
+plan_minimo: gratis
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-musica-espectaculos.noexpertise.com
+activa: true
+orden: 350
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu proyecto"
+    pregunta: "¿Cómo se llama tu banda, grupo o espectáculo y qué hacéis?"
+    ayuda: "Qué tocáis o qué espectáculo hacéis, dónde y en qué tipo de eventos."
+    tipo: texto
+    campos: [nombre, eslogan, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto, secciones.hero.items, seo.titulo, seo.descripcion]
+  - id: contacto
+    titulo: "Cómo os contratan"
+    pregunta: "¿Cómo os pueden llamar o escribir para contrataros?"
+    ayuda: "Solo lo que quieras que vea la gente. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.facebook]
+  - id: fechas
+    titulo: "Próximas fechas"
+    pregunta: "¿Qué conciertos abiertos al público tenéis? Fecha, sala o lugar, ciudad y hora. Uno por línea."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido, con el enlace de venta de entradas."
+    tipo: lista
+    campos: [secciones.fechas.fechas]
+  - id: espectaculos
+    titulo: "Tus espectáculos"
+    pregunta: "¿Qué formatos o espectáculos ofrecéis? Nombre, en qué consiste, cuánto dura y con cuántos músicos."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido."
+    tipo: lista
+    campos: [secciones.espectaculos.espectaculos]
+  - id: banda
+    titulo: "Quiénes sois"
+    pregunta: "¿Quién forma el grupo? Nombre y qué hace cada uno, uno por línea."
+    ayuda: "Las fotos las pones luego en Contenido."
+    tipo: lista
+    campos: [secciones.banda.personas]
+  - id: videos
+    titulo: "Vídeos"
+    pregunta: "¿Tenéis vídeos en YouTube o Vimeo? Título y enlace de cada uno, uno por línea."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido."
+    tipo: lista
+    campos: [secciones.videos.items]
+  - id: contratacion
+    titulo: "Contratación"
+    pregunta: "¿Cómo trabajáis cuando alguien os quiere contratar? ¿Para qué tipos de evento?"
+    tipo: texto
+    campos: [secciones.contratacion.titulo, secciones.contratacion.texto, secciones.contratacion.items, secciones.contratacion.tipos_evento]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué os preguntan antes de contrataros? Escribe cada pregunta y lo que respondéis."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada y, si quieres, alguna más del grupo y de vuestros directos."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.banda.imagen, secciones.galeria.galeria]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso
