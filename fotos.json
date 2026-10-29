@@ -2,7 +2,7 @@
   {
     "fichero": "fotos/hero.jpg",
     "aspecto": "16:9",
-    "prompt": "Escenario de concierto al aire libre de noche en la plaza de una ciudad mediterránea: batería, micrófonos en pie y amplificadores sobre el escenario, haces de focos magenta y ámbar cruzándose entre humo, guirnaldas de bombillas al fondo, encuadre amplio y frontal desde abajo, sin personas, sin texto ni logotipos"
+    "prompt": "Escenario de concierto al aire libre de noche en la plaza de una ciudad mediterránea: micrófonos en pie, monitores de suelo y una batería vista de espaldas desde detrás del músico (bombo no visible de frente), haces de focos magenta y ámbar cruzándose entre humo, guirnaldas de bombillas al fondo, encuadre amplio, sin personas, sin texto, sin logotipos, sin rótulos ni carteles luminosos"
   },
   {
     "fichero": "fotos/espectaculo-verbena.jpg",
@@ -27,12 +27,12 @@
   {
     "fichero": "fotos/banda-escenario.jpg",
     "aspecto": "4:3",
-    "prompt": "Vista desde el fondo del escenario hacia la sala: batería en primer plano desenfocada, amplificadores, cables por el suelo y haces de focos magenta y blancos atravesando el humo, sala vacía, sin personas, sin texto ni logotipos"
+    "prompt": "Vista desde el fondo del escenario hacia la sala vacía de butacas rojas: en primer plano solo cables por el suelo, monitores de escenario negros lisos y un pie de micrófono, haces de focos magenta y blancos atravesando el humo, sin batería, sin personas, sin texto, sin logotipos ni marcas"
   },
   {
     "fichero": "fotos/video-plaza.jpg",
     "aspecto": "16:9",
-    "prompt": "Plaza mayor de una ciudad española de noche iluminada por un escenario al fondo con focos magenta y ámbar, guirnaldas de luces cruzando la plaza, suelo de piedra brillante, plano general cinematográfico, sin personas, sin texto"
+    "prompt": "Plaza mayor de una ciudad española de noche iluminada por un escenario al fondo con focos magenta y ámbar, guirnaldas de luces cruzando la plaza, suelo de piedra brillante, plano general cinematográfico, sin personas, sin texto, la pantalla del escenario apagada y negra, sin ninguna imagen ni texto en ella"
   },
   {
     "fichero": "fotos/video-boda.jpg",
@@ -47,7 +47,7 @@
   {
     "fichero": "fotos/galeria-1.jpg",
     "aspecto": "1:1",
-    "prompt": "Primer plano de unas baquetas apoyadas sobre la caja de una batería, platillos brillantes, luz magenta lateral y fondo negro, sin personas, sin marcas"
+    "prompt": "Primer plano de unas baquetas de madera apoyadas sobre un platillo dorado brillante, luz magenta lateral y fondo negro, solo platillos y baquetas, sin parches, sin personas, sin texto, sin logotipos ni marcas"
   },
   {
     "fichero": "fotos/galeria-2.jpg",
@@ -62,7 +62,7 @@
   {
     "fichero": "fotos/galeria-4.jpg",
     "aspecto": "1:1",
-    "prompt": "Guitarra eléctrica apoyada en un amplificador sobre un escenario, luz roja y magenta, cables enrollados en el suelo, sin personas, sin marcas ni logotipos"
+    "prompt": "Guitarra eléctrica apoyada en un amplificador sobre un escenario, luz roja y magenta, cables enrollados en el suelo, sin personas, sin marcas ni logotipos, amplificador negro completamente liso, sin ningún rótulo, logotipo ni marca en el frontal"
   },
   {
     "fichero": "fotos/galeria-5.jpg",
