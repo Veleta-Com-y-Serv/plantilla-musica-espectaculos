@@ -73,10 +73,54 @@ secciones:
     texto: "Cuatro formatos para cuatro tipos de fiesta. Todos con repertorio a la carta: dinos las canciones que no pueden faltar."
     cta: { texto: Pide presupuesto, url: "/#contratacion" }
     espectaculos:
-      - { titulo: Verbena total, texto: "El espectáculo grande: pop, rock, rumba y los éxitos que canta todo el pueblo. Escenario, luces y dos pases con descanso.", duracion: "3 h en dos pases", formato: "Banda completa · 6 músicos", imagen: /fotos/espectaculo-verbena.jpg }
-      - { titulo: Bodas en directo, texto: "Ceremonia en acústico, cóctel en trío y fiesta con la banda y DJ hasta el final. Ensayamos vuestro primer baile.", duracion: "De la ceremonia al último baile", formato: "Dúo, trío o banda + DJ", imagen: /fotos/espectaculo-boda.jpg }
-      - { titulo: Tributo 80 y 90, texto: "Un viaje por la movida, el pop español y los himnos de las verbenas de los noventa, con vestuario y vídeo en pantalla.", duracion: "2 h", formato: "Banda + coristas", imagen: /fotos/espectaculo-tributo.jpg }
-      - { titulo: Acústico, texto: "Formato pequeño para salas, restaurantes, cenas de empresa y terrazas. Sonido cuidado a volumen de conversación.", duracion: "90 min", formato: "Trío acústico", imagen: /fotos/espectaculo-acustico.jpg }
+      - titulo: Verbena total
+        texto: "El espectáculo grande: pop, rock, rumba y los éxitos que canta todo el pueblo. Escenario, luces y dos pases con descanso."
+        duracion: "3 h en dos pases"
+        formato: "Banda completa · 6 músicos"
+        imagen: /fotos/espectaculo-verbena.jpg
+        imagenes: "/fotos/galeria-1.jpg; /fotos/galeria-2.jpg"
+        detalle: |
+          La Verbena total es lo que la gente espera cuando oye «orquesta» en las fiestas del pueblo, pero con la energía de una banda de directo. Subimos al escenario los seis músicos, con nuestro propio sonido y luces, y montamos una noche pensada para que nadie se quede sentado: empezamos con pop y rock para entrar en calor, pasamos a la rumba y a los coros que se cantan solos, y cerramos con los temas que ya conoce toda la plaza.
+
+          El espectáculo se reparte en dos pases con un descanso en medio, para que el público respire y el equipo pueda hacer una pausa sin que la fiesta se enfríe. En ese descanso suena música grabada y el técnico aprovecha para ajustar el sonido a la sala o a la plaza.
+
+          Antes de cerrar la fecha repasamos contigo el repertorio: las canciones que no pueden faltar, las que prefieres evitar y los momentos especiales, como una dedicatoria o un homenaje. Llegamos con tiempo para el montaje y la prueba de sonido, y recogemos todo al terminar. Solo necesitamos un escenario o una zona despejada y una toma de corriente adecuada; lo demás lo ponemos nosotros.
+      - titulo: Bodas en directo
+        texto: "Ceremonia en acústico, cóctel en trío y fiesta con la banda y DJ hasta el final. Ensayamos vuestro primer baile."
+        duracion: "De la ceremonia al último baile"
+        formato: "Dúo, trío o banda + DJ"
+        imagen: /fotos/espectaculo-boda.jpg
+        imagenes: "/fotos/galeria-3.jpg; /fotos/galeria-4.jpg"
+        detalle: |
+          Una boda tiene varios momentos y cada uno pide un sonido distinto. Por eso este espectáculo se arma por piezas: un dúo acústico para la ceremonia, un trío para el cóctel y, cuando llega la fiesta, la banda completa y nuestra DJ para que la pista no se vacíe hasta el último baile. Tú eliges cuántas piezas necesitas y cuáles prefieres dejar en manos de otros.
+
+          Trabajamos con los novios desde el primer día. Nos cuentan cómo se conocieron, qué canciones les han acompañado y cuál quieren para entrar o para el vals, y nosotros lo arreglamos para el formato que toque. El primer baile se ensaya con vosotros, a vuestro ritmo, para que ese minuto salga como lo habéis imaginado.
+
+          El día de la boda llegamos pronto, coordinamos el horario con la finca, el fotógrafo y el resto de proveedores, y montamos el equipo sin molestar a los invitados. Llevamos sonido propio y un técnico, así que no tenéis que preocuparos de nada. Vosotros disfrutáis de la celebración y nosotros nos encargamos de que la música acompañe cada momento.
+      - titulo: Tributo 80 y 90
+        texto: "Un viaje por la movida, el pop español y los himnos de las verbenas de los noventa, con vestuario y vídeo en pantalla."
+        duracion: "2 h"
+        formato: "Banda + coristas"
+        imagen: /fotos/espectaculo-tributo.jpg
+        imagenes: "/fotos/galeria-5.jpg; /fotos/galeria-6.jpg"
+        detalle: |
+          El Tributo 80 y 90 es un concierto temático para quien creció con la movida madrileña, el pop español y los himnos de las verbenas de los noventa. Recorremos esas dos décadas canción a canción, con la banda y las coristas, y con vestuario que cambia según el momento que toca recordar. Detrás, una pantalla proyecta vídeos y fotografías de la época para que el viaje también se vea.
+
+          Es un espectáculo cerrado, con un guion y un ritmo pensados para dos horas sin altibajos: empieza con los grandes éxitos para ganarse al público desde el primer compás, baja un poco para los temas más coreados y sube de nuevo hacia un final en el que todo el mundo canta.
+
+          Funciona muy bien en fiestas patronales, salas, cenas de empresa y celebraciones de aniversario, sobre todo cuando el público tiene edades mezcladas y cada generación encuentra su canción. Si lo necesitas, adaptamos el guion al tipo de evento, añadimos un tema especial o ajustamos el vestuario. Llevamos el equipo de sonido, la iluminación y la pantalla, y nos ocupamos del montaje y de la prueba de sonido.
+      - titulo: Acústico
+        texto: "Formato pequeño para salas, restaurantes, cenas de empresa y terrazas. Sonido cuidado a volumen de conversación."
+        duracion: "90 min"
+        formato: "Trío acústico"
+        imagen: /fotos/espectaculo-acustico.jpg
+        imagenes: "/fotos/galeria-2.jpg; /fotos/galeria-5.jpg"
+        detalle: |
+          El Acústico es nuestro formato más íntimo: un trío con guitarras, voz y percusión suave que toca a un volumen en el que todavía se puede conversar. Está pensado para espacios donde la música acompaña pero no tapa: salas pequeñas, restaurantes, terrazas, cenas de empresa, presentaciones y celebraciones en casa o en un jardín.
+
+          El repertorio mezcla versiones conocidas de pop, rock y música latina en arreglos tranquilos con temas más movidos, según cómo vaya la noche. Si el público se anima, subimos un poco la energía; si prefieren una velada tranquila, nos quedamos en lo suave. Siempre cuidamos el sonido para que se escuche bien en cada rincón sin molestar a los vecinos ni a los comensales.
+
+          Es el formato más fácil de montar: ocupamos poco espacio, el montaje es rápido y no hace falta escenario. Llevamos nuestro equipo pequeño de sonido y, si el local lo permite, una iluminación discreta. Contadnos el tipo de evento y el ambiente que buscáis, y os proponemos el repertorio y la duración que mejor encajan.
 
   banda:
     activa: true

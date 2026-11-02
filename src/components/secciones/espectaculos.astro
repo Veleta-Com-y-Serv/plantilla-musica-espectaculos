@@ -1,9 +1,11 @@
 ---
 // Espectáculos o repertorio: `espectaculos: [{titulo, texto, duracion, formato, imagen}]` en filas 50/50 a sangre en
 // zigzag: la foto (duotono magenta, a color al pasar) toca el borde de la ventana y el texto va sobre magenta o noche,
-// con el número en hueco enorme. Sin foto, la fila es solo texto a todo el ancho. `cta` opcional al final.
+// Los espectáculos con `detalle` tienen página propia (/espectaculos/<slug>/): el título enlaza y toda la fila es clicable.
+// Con el número en hueco enorme. Sin foto, la fila es solo texto a todo el ancho. `cta` opcional al final.
 import { seccion } from '../../data/site';
 import { altFicha } from '../../lib/seo';
+import { enlaceDe } from '../../lib/paginas';
 import Seccion from '../ui/Seccion.astro';
 import Titular from '../ui/Titular.astro';
 import Imagen from '../ui/Imagen.astro';
@@ -32,7 +34,7 @@ const dos = (n: number) => String(n + 1).padStart(2, '0');
               <div class:list={['espect-texto', i % 2 === 0 ? 'banda-magenta trama' : 'banda-oscura']}>
                 <div class="espect-interior">
                   <p class="espect-num hueco" aria-hidden="true">{dos(i)}</p>
-                  <h3 class="espect-titulo">{e.titulo}</h3>
+                  <h3 class="espect-titulo">{enlaceDe(e) ? <a href={enlaceDe(e)} class="espect-enlace">{e.titulo}</a> : e.titulo}</h3>
                   {e.texto && <p class="espect-parrafo">{e.texto}</p>}
                   {(e.duracion || e.formato) && (
                     <ul class="espect-datos">
@@ -40,6 +42,7 @@ const dos = (n: number) => String(n + 1).padStart(2, '0');
                       {e.duracion && <li><Icono nombre="reloj" tam={18} />{e.duracion}</li>}
                     </ul>
                   )}
+                  {enlaceDe(e) && <span class="espect-ver" aria-hidden="true">Ver más <Icono nombre="flecha" tam={18} /></span>}
                 </div>
               </div>
             </li>
@@ -58,7 +61,12 @@ const dos = (n: number) => String(n + 1).padStart(2, '0');
 <style>
   .espect-banda { padding-bottom: 0; }
   .espect-banda:has(.contenedor.pt-14) { padding-bottom: 3.5rem; }
-  .espect-fila { display: grid; }
+  .espect-fila { display: grid; position: relative; }
+  .espect-enlace { color: inherit; text-decoration: none; }
+  .espect-enlace::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .espect-enlace:focus-visible { outline: none; }
+  .espect-fila:has(.espect-enlace:focus-visible) { outline: 4px solid var(--c-acento); outline-offset: -4px; }
+  .espect-ver { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.25rem; font-family: var(--fuente-mono); font-size: .85rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; border-bottom: 2px solid currentColor; padding-block: .6rem .2rem; }
   .espect-foto { aspect-ratio: 4 / 3; min-height: 0; }
   .espect-texto { display: flex; align-items: center; }
   .espect-interior { width: 100%; padding: 2.5rem 1rem 3rem; }

@@ -70,3 +70,8 @@ sintetizador). Sin texto legible, sin logotipos y sin personas.
 - Volver a la caja centrada estrecha con tarjetas o al hero de la base.
 - Quitar el duotono, la cinta o las fechas en grande: es lo que distingue la plantilla.
 - Poner textos fijos en los componentes o inventar precios, fechas, cifras u opiniones.
+
+## Páginas propias (fichas)
+Con la misma piel que la portada: cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista.
